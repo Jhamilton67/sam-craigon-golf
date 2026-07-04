@@ -125,12 +125,9 @@ export default function LaunchMonitor({
       {/* Instrument header */}
       <div className={`flex items-center justify-between mb-5 pb-4 border-b ${headerBorder}`}>
         <div className="flex items-center gap-2.5">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brass opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-brass" />
-          </span>
+          <span className="inline-flex h-2 w-2 rounded-full bg-brass" />
           <span className={`font-mono text-[10px] font-semibold uppercase tracking-mega ${headerText}`}>
-            TrackMan · Live
+            TrackMan Data
           </span>
         </div>
         <span className={`font-mono text-[10px] uppercase tracking-widest ${isLight ? 'text-ink-mute' : 'text-bone-mute'}`}>

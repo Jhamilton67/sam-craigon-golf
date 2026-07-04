@@ -89,14 +89,6 @@ export default function Home() {
             </GoldButton>
             <GhostButton to="/lessons">Explore Coaching</GhostButton>
           </div>
-
-          {/* Signature launch-monitor data strip — the hero anchor */}
-          <div className="mt-14 md:mt-16 max-w-3xl animate-fade-up opacity-0-start delay-500">
-            <LaunchMonitor variant="full" tone="dark" />
-            <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-bone-mute">
-              Sample driver session · captured in studio
-            </p>
-          </div>
         </div>
       </section>
 
