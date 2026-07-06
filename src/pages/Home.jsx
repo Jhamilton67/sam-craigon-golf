@@ -8,7 +8,7 @@ const pillars = [
   {
     kicker: 'Coaching',
     title: 'PGA Professional Lessons',
-    body: 'Every lesson is delivered by a qualified PGA professional. Clear, direct feedback backed by data — changes that hold up on the course, not just on the range.',
+    body: 'Every lesson is delivered by a qualified PGA professional. Clear, direct feedback backed by data. Changes that hold up on the course, not just on the range.',
     link: '/lessons',
     label: 'Golf Lessons',
   },
@@ -30,7 +30,7 @@ const pillars = [
 
 const testimonials = [
   {
-    quote: 'Sam completely transformed my ball striking in four sessions. The TrackMan data made it obvious exactly what to change — and it actually stuck.',
+    quote: 'Sam completely transformed my ball striking in four sessions. The TrackMan data made it obvious exactly what to change, and it actually stuck.',
     author: 'David M.',
     detail: 'Handicap 18 → 12',
   },
@@ -79,7 +79,7 @@ export default function Home() {
 
           <p className="mt-7 text-bone-soft text-sm md:text-lg font-body leading-relaxed max-w-xl animate-fade-up opacity-0-start delay-300">
             Professional coaching, precision TrackMan fitting, and year-round
-            studio access — everything you need to play better golf, under one
+            studio access. Everything you need to play better golf, under one
             roof at Uphall.
           </p>
 
@@ -141,7 +141,7 @@ export default function Home() {
               </h2>
               <p className="text-bone-soft text-base font-body leading-relaxed mb-8 max-w-lg">
                 Memberships built for golfers who want regular, high-quality
-                practice without paying full price every visit — with TrackMan
+                practice without paying full price every visit. TrackMan
                 data tracking real improvement across every session.
               </p>
               <div className="space-y-3.5 mb-10">
@@ -149,7 +149,7 @@ export default function Home() {
                   'Member-only rates on studio time',
                   'Priority booking during peak hours',
                   'Unlimited TrackMan data to track progress',
-                  'All-weather practice — train anytime',
+                  'All-weather practice. Train anytime.',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-brass mt-2 shrink-0" />
@@ -234,7 +234,7 @@ export default function Home() {
               Ready to change your game?
             </h2>
             <p className="text-bone-soft text-base font-body max-w-md">
-              Book a studio lesson, on-course session, or custom fitting — and
+              Book a studio lesson, on-course session, or custom fitting and
               start seeing real numbers.
             </p>
           </div>

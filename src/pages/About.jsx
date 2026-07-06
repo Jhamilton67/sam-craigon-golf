@@ -10,7 +10,7 @@ const credentials = [
 ];
 
 const principles = [
-  { title: 'Honest feedback', body: 'You will always know exactly where your game stands and what to work on. No flattery, no ambiguity — just clear assessment that helps you improve.' },
+  { title: 'Honest feedback', body: 'You will always know exactly where your game stands and what to work on. No flattery, no ambiguity. Just clear assessment that helps you improve.' },
   { title: 'Proven methods', body: 'Data-led coaching does not mean robotic coaching. The numbers inform the plan; the plan is built around how you actually swing.' },
   { title: 'Results you can trust', body: 'Improvement measured in handicap strokes, not feel-good moments on the range. Every session builds a game that holds up under pressure.' },
 ];
@@ -46,7 +46,7 @@ export default function About() {
               </p>
               <p className="font-display text-2xl md:text-4xl lg:text-[2.75rem] text-bone font-medium leading-[1.12] tracking-tight text-balance">
                 “I coach simple. The data tells us <span className="italic text-brass-light">why</span> a
-                change works — so it holds up long after the lesson ends.”
+                change works, so it holds up long after the lesson ends.”
               </p>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function About() {
                   lowers your handicap for good.
                 </p>
                 <p>
-                  Alongside coaching, I stock and fit all major golf brands —
+                  Alongside coaching, I stock and fit all major golf brands.
                   lessons, custom fitting, and expert equipment advice in one
                   place. Whether you are new to the game or chasing your next
                   level, the aim is always the same: honest feedback, proven

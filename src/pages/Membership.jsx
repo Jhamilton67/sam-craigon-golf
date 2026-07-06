@@ -34,9 +34,9 @@ const benefits = [
 
 const faqs = [
   { q: 'Can I cancel my monthly membership?', a: 'Monthly memberships can be cancelled with 30 days notice. Get in touch directly to discuss your situation.' },
-  { q: 'Do I need to be a member of Uphall Golf Club?', a: 'No — studio memberships are open to anyone, regardless of club membership status.' },
+  { q: 'Do I need to be a member of Uphall Golf Club?', a: 'No. Studio memberships are open to anyone, regardless of club membership status.' },
   { q: 'What equipment is in the studio?', a: 'A full TrackMan launch monitor. Bring your own clubs, or Sam can supply demo equipment for fitting or lessons.' },
-  { q: 'Can I upgrade or downgrade my tier?', a: 'Yes — speak to Sam directly and changes can be made at the next billing cycle.' },
+  { q: 'Can I upgrade or downgrade my tier?', a: 'Yes. Speak to Sam directly and changes can be made at the next billing cycle.' },
 ];
 
 export default function Membership() {

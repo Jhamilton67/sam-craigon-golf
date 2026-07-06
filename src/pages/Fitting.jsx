@@ -10,14 +10,14 @@ const heroStats = [
 ];
 
 const dataPoints = [
-  { label: 'Club Path', desc: 'Inside-out, outside-in, or straight — measured to the degree.' },
-  { label: 'Face Angle', desc: 'Where the face points at impact — the primary driver of start direction.' },
+  { label: 'Club Path', desc: 'Inside-out, outside-in, or straight. Measured to the degree.' },
+  { label: 'Face Angle', desc: 'Where the face points at impact. The primary driver of start direction.' },
   { label: 'Launch Angle', desc: 'Optimise carry and distance with the correct launch for your speed.' },
   { label: 'Spin Rate', desc: 'Too much or too little spin costs distance. We find the sweet spot.' },
-  { label: 'Ball Speed', desc: 'A direct measure of energy transfer — higher is better. We chase it.' },
+  { label: 'Ball Speed', desc: 'A direct measure of energy transfer. Higher is better. We chase it.' },
   { label: 'Carry Distance', desc: 'Real carry numbers for every club in the bag, no estimates.' },
   { label: 'Dispersion', desc: 'Tighter dispersion means more fairways and more greens.' },
-  { label: 'Dynamic Loft', desc: 'The loft the club presents at impact — critical for shaft fitting.' },
+  { label: 'Dynamic Loft', desc: 'The loft the club presents at impact. Critical for shaft fitting.' },
 ];
 
 const fittingAreas = [
@@ -129,7 +129,7 @@ export default function Fitting() {
                   Ready to change your game?
                 </h3>
                 <p className="text-bone-soft text-base font-body leading-relaxed mb-6">
-                  Book a TrackMan fitting and leave with a spec sheet — not just
+                  Book a TrackMan fitting and leave with a spec sheet, not just
                   a feeling.
                 </p>
                 <GoldButton to="/book">
@@ -141,7 +141,7 @@ export default function Fitting() {
                   'All major brands fitted on-site',
                   'Irons, woods, wedges, and putter fitting available',
                   'Ball fitting included where relevant',
-                  'No obligation to purchase — the data is yours to keep',
+                  'No obligation to purchase. The data is yours to keep.',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle size={15} className="text-brass mt-0.5 shrink-0" />

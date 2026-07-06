@@ -18,7 +18,7 @@ export default function Location() {
               <span className="italic text-brass-light"> West Lothian.</span>
             </h1>
             <p className="mt-6 text-bone-soft text-base md:text-lg font-body leading-relaxed animate-fade-up opacity-0-start delay-200">
-              Coaching, custom fitting, and studio access — all in one place, with
+              Coaching, custom fitting, and studio access. All in one place, with
               a proper golf course on the doorstep.
             </p>
           </div>
@@ -44,13 +44,13 @@ export default function Location() {
                 <p>
                   Sam's TrackMan studio is based here, putting coaching, custom
                   fitting, and retail all under one roof. Lesson, fitting, or
-                  membership enquiry — this is where you will find us.
+                  membership enquiry. This is where you will find us.
                 </p>
               </div>
 
               <div className="space-y-3 mb-8">
                 {[
-                  { icon: Trees, label: 'Parkland course — fair, rewarding, and worth playing' },
+                  { icon: Trees, label: 'Parkland course. Fair, rewarding, and worth playing.' },
                   { icon: Coffee, label: 'Clubhouse with catering available' },
                   { icon: Car, label: 'Parking on site' },
                   { icon: MapPin, label: 'Easy to find in West Lothian' },
@@ -92,7 +92,7 @@ export default function Location() {
                   golfers honest.
                 </p>
                 <p className="text-ink-soft text-sm font-body leading-relaxed">
-                  On-course lessons take place here — the ideal environment for
+                  On-course lessons take place here. The ideal environment for
                   putting course management into practice with a PGA professional
                   at your side.
                 </p>

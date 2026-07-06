@@ -10,7 +10,7 @@ const heroStats = [
 ];
 
 const studioFeatures = [
-  'TrackMan data on every shot — ball flight, club path, face angle, spin',
+  'TrackMan data on every shot. Ball flight, club path, face angle, spin.',
   'Video swing analysis reviewed with your coach in real time',
   'Targeted drills designed around your specific data',
   'Accurate feedback regardless of weather or season',
@@ -33,7 +33,7 @@ export default function Lessons() {
       <PageHero
         label="Golf Lessons"
         title="Coaching that changes how you play."
-        subtitle="Whether you are new to the game or shooting scratch, every lesson is built around your swing — backed by data, driven by results."
+        subtitle="Whether you are new to the game or shooting scratch, every lesson is built around your swing. Backed by data, driven by results."
         cta="/book"
         ctaLabel="Book a Lesson"
         stats={heroStats}
@@ -49,7 +49,7 @@ export default function Lessons() {
             </h2>
             <p className="text-ink-soft text-base md:text-lg font-body leading-relaxed">
               Every session focuses on what matters: grip, stance, swing
-              mechanics, short game, and course strategy — tailored to your
+              mechanics, short game, and course strategy. Tailored to your
               ability level. Sam uses alignment sticks, targeted drills, video
               analysis, and TrackMan to make improvements that stick, not just
               feel good on the day.
@@ -78,8 +78,8 @@ export default function Lessons() {
               </h3>
               <p className="text-bone-soft text-sm font-body leading-relaxed mb-7">
                 Sam's TrackMan performance studio gives you data-driven coaching
-                year-round. Every swing is captured — ball flight, club path,
-                face angle, launch, spin, carry — so you understand exactly what
+                year-round. Every swing is captured: ball flight, club path,
+                face angle, launch, spin, carry. You understand exactly what
                 is happening and why it is changing.
               </p>
               <ul className="space-y-3 mb-8">
@@ -107,7 +107,7 @@ export default function Lessons() {
               </h3>
               <p className="text-bone-soft text-sm font-body leading-relaxed mb-7">
                 Studio numbers only take you so far. On-course sessions put you
-                in real playing situations — course management, shot selection
+                in real playing situations: course management, shot selection
                 under pressure, reading lies, adjusting for wind. This is where
                 good practice becomes lower scores.
               </p>
