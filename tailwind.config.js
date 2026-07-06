@@ -4,47 +4,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        forest: {
-          950: '#0c1a0c',
-          900: '#132013',
-          800: '#1a2e1a',
-          700: '#22401f',
-          600: '#2d5529',
-          500: '#3a6b34',
-          400: '#4d8645',
-          300: '#6aa361',
+        // Fairway green — primary dark surfaces
+        fairway: {
+          DEFAULT: '#16352A',
+          deep: '#0E241C',   // deepest — footer / contrast
+          light: '#1D4436',  // hairline borders / raised cards
+          soft: '#234E3D',
         },
-        cream: {
-          50:  '#fefdf8',
-          100: '#faf7ed',
-          200: '#f5f0de',
-          300: '#ede4c7',
-          400: '#dfd3a9',
+        // Ivory — light section background
+        ivory: {
+          DEFAULT: '#F6F3EC',
+          dark: '#EBE6D9',   // subtle cards on ivory
         },
-        gold: {
-          300: '#e8c97a',
-          400: '#d4a843',
-          500: '#c9a030',
-          600: '#a8832a',
+        // Brass / gold — accent, used sparingly
+        brass: {
+          DEFAULT: '#B68A4E',
+          light: '#C9A066',
+          dark: '#8F6C3A',
         },
-        charcoal: {
-          900: '#111111',
-          800: '#1c1c1c',
-          700: '#242424',
-          600: '#2f2f2f',
-          500: '#3d3d3d',
-          400: '#555555',
-          300: '#888888',
-          200: '#aaaaaa',
-          100: '#cccccc',
+        // Off-white text on dark
+        bone: {
+          DEFAULT: '#F3F0E8',
+          soft: '#C9C6BB',   // muted body on dark
+          mute: '#928F84',   // captions on dark
+        },
+        // Charcoal text on light
+        ink: {
+          DEFAULT: '#1C231F',
+          soft: '#40483F',   // body on ivory
+          mute: '#6E756A',   // captions on ivory
         },
       },
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        body: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
-        widest: '0.2em',
+        widest: '0.22em',
+        mega: '0.3em',
+      },
+      maxWidth: {
+        content: '76rem',
       },
     },
   },
