@@ -63,31 +63,41 @@ export default function Home() {
         {/* faint brass edge line */}
         <div className="absolute left-0 top-32 bottom-24 w-px bg-gradient-to-b from-transparent via-brass/40 to-transparent" />
 
-        <div className="relative z-10 max-w-content mx-auto px-6 lg:px-10 pt-32 pb-20 md:pt-44 md:pb-28">
-          <div className="flex items-center gap-3 mb-8 animate-fade-in opacity-0-start">
-            <div className="w-10 h-px bg-brass" />
-            <span className="font-mono text-[11px] font-medium tracking-mega uppercase text-brass-light">
-              PGA Professional · Uphall Golf Club
-            </span>
-          </div>
+        <div className="relative z-10 max-w-content mx-auto px-6 lg:px-10 pt-32 pb-20 md:pt-44 md:pb-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
+            {/* Left — headline + CTA */}
+            <div>
+              <div className="flex items-center gap-3 mb-8 animate-fade-in opacity-0-start">
+                <div className="w-10 h-px bg-brass" />
+                <span className="font-mono text-[11px] font-medium tracking-mega uppercase text-brass-light">
+                  PGA Professional · Uphall Golf Club
+                </span>
+              </div>
 
-          <h1 className="font-display text-[2.25rem] leading-[1.02] sm:text-5xl lg:text-7xl xl:text-[5.5rem] text-bone font-semibold tracking-tight max-w-4xl text-balance animate-fade-up opacity-0-start delay-100">
-            Play the game the
-            <span className="italic text-brass-light"> numbers </span>
-            say you can.
-          </h1>
+              <h1 className="font-display text-[2.5rem] leading-[1.02] sm:text-5xl xl:text-[5rem] text-bone font-semibold tracking-tight text-balance animate-fade-up opacity-0-start delay-100">
+                Play the game the
+                <span className="italic text-brass-light"> numbers </span>
+                say you can.
+              </h1>
 
-          <p className="mt-7 text-bone-soft text-sm md:text-lg font-body leading-relaxed max-w-xl animate-fade-up opacity-0-start delay-300">
-            Professional coaching, precision TrackMan fitting, and year-round
-            studio access. Everything you need to play better golf, under one
-            roof at Uphall.
-          </p>
+              <p className="mt-7 text-bone-soft text-base md:text-lg font-body leading-relaxed max-w-lg animate-fade-up opacity-0-start delay-300">
+                Professional coaching, precision TrackMan fitting, and year-round
+                studio access. Everything you need to play better golf, under one
+                roof at Uphall.
+              </p>
 
-          <div className="mt-9 flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 animate-fade-up opacity-0-start delay-500">
-            <GoldButton to="/book">
-              Book a Lesson <ArrowRight size={16} />
-            </GoldButton>
-            <GhostButton to="/lessons">Explore Coaching</GhostButton>
+              <div className="mt-9 flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 animate-fade-up opacity-0-start delay-500">
+                <GoldButton to="/book">
+                  Book a Lesson <ArrowRight size={16} />
+                </GoldButton>
+                <GhostButton to="/lessons">Explore Coaching</GhostButton>
+              </div>
+            </div>
+
+            {/* Right — LaunchMonitor data panel */}
+            <div className="animate-fade-up opacity-0-start delay-400">
+              <LaunchMonitor variant="full" tone="dark" />
+            </div>
           </div>
         </div>
       </section>
