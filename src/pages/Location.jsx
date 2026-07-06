@@ -28,7 +28,7 @@ export default function Location() {
       {/* ── ABOUT THE CLUB (ivory) ───────────────────────────── */}
       <section className="py-20 md:py-28 bg-ivory">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-start">
             <div className="reveal">
               <SectionLabel tone="light">Uphall Golf Club</SectionLabel>
               <h2 className="font-display text-3xl md:text-5xl text-ink font-semibold leading-[1.08] tracking-tight mb-6 text-balance">
@@ -62,7 +62,7 @@ export default function Location() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <GoldButton to="/book">
                   Book a lesson <ArrowRight size={16} />
                 </GoldButton>
@@ -105,7 +105,7 @@ export default function Location() {
       {/* ── CONTACT (dark) ───────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-fairway">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-start">
             <div className="reveal">
               <SectionLabel>Get in touch</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl text-bone font-semibold mb-8 leading-snug tracking-tight">

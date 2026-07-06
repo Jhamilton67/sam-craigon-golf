@@ -49,7 +49,7 @@ export default function Book() {
       {/* ── SERVICE TYPE CARDS (deep fairway) ────────────────── */}
       <section className="pb-14 bg-fairway-deep">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             {serviceTypes.map(({ kicker, name, desc, duration }, i) => (
               <div
                 key={name}

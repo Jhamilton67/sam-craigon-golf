@@ -42,14 +42,14 @@ export function PageHero({ label, title, subtitle, cta, ctaLabel = 'Book a Lesso
       <div className="absolute left-0 top-28 bottom-16 w-px bg-gradient-to-b from-transparent via-brass/40 to-transparent" />
 
       <div className="relative z-10 max-w-content mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-end">
-          <div className="lg:col-span-7">
+        <div className={`grid grid-cols-1 ${stats ? 'lg:grid-cols-12' : ''} gap-10 lg:gap-10 items-end`}>
+          <div className={stats ? 'lg:col-span-7' : ''}>
             {label && <SectionLabel>{label}</SectionLabel>}
-            <h1 className="font-display text-4xl md:text-5xl lg:text-[3.75rem] text-bone font-semibold leading-[1.05] tracking-tight max-w-2xl animate-fade-up opacity-0-start text-balance">
+            <h1 className="font-display text-[2.25rem] sm:text-5xl lg:text-[3.75rem] text-bone font-semibold leading-[1.05] tracking-tight max-w-2xl animate-fade-up opacity-0-start text-balance">
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-6 text-bone-soft text-base md:text-lg font-body leading-relaxed max-w-xl animate-fade-up delay-200 opacity-0-start">
+              <p className="mt-6 text-bone-soft text-sm md:text-lg font-body leading-relaxed max-w-xl animate-fade-up delay-200 opacity-0-start">
                 {subtitle}
               </p>
             )}

@@ -71,19 +71,19 @@ export default function Home() {
             </span>
           </div>
 
-          <h1 className="font-display text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-bone font-semibold tracking-tight max-w-4xl text-balance animate-fade-up opacity-0-start delay-100">
+          <h1 className="font-display text-[2.25rem] leading-[1.02] sm:text-5xl lg:text-7xl xl:text-[5.5rem] text-bone font-semibold tracking-tight max-w-4xl text-balance animate-fade-up opacity-0-start delay-100">
             Play the game the
             <span className="italic text-brass-light"> numbers </span>
             say you can.
           </h1>
 
-          <p className="mt-7 text-bone-soft text-base md:text-lg font-body leading-relaxed max-w-xl animate-fade-up opacity-0-start delay-300">
+          <p className="mt-7 text-bone-soft text-sm md:text-lg font-body leading-relaxed max-w-xl animate-fade-up opacity-0-start delay-300">
             Professional coaching, precision TrackMan fitting, and year-round
             studio access — everything you need to play better golf, under one
             roof at Uphall.
           </p>
 
-          <div className="mt-9 flex flex-wrap gap-4 animate-fade-up opacity-0-start delay-500">
+          <div className="mt-9 flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 animate-fade-up opacity-0-start delay-500">
             <GoldButton to="/book">
               Book a Lesson <ArrowRight size={16} />
             </GoldButton>
@@ -102,7 +102,7 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/10 rounded-xl overflow-hidden border border-ink/10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/10 rounded-xl overflow-hidden border border-ink/10">
             {pillars.map(({ kicker, title, body, link, label }) => (
               <div
                 key={title}
@@ -163,7 +163,7 @@ export default function Home() {
             </div>
 
             {/* Parallel price cards */}
-            <div className="reveal grid grid-cols-2 gap-3.5">
+            <div className="reveal grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-3.5">
               {tiers.map(({ name, price, period, highlight, feature }) => (
                 <div
                   key={name}
@@ -228,7 +228,7 @@ export default function Home() {
 
       {/* ── CTA (deep fairway) ───────────────────────────────── */}
       <section className="py-20 md:py-28 bg-fairway-deep">
-        <div className="max-w-content mx-auto px-6 lg:px-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+        <div className="max-w-content mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
           <div className="reveal">
             <h2 className="font-display text-3xl md:text-4xl text-bone font-semibold tracking-tight mb-3 text-balance">
               Ready to change your game?
@@ -238,7 +238,7 @@ export default function Home() {
               start seeing real numbers.
             </p>
           </div>
-          <div className="reveal flex flex-col sm:flex-row gap-4 shrink-0">
+          <div className="reveal flex flex-col sm:flex-row gap-4 shrink-0 w-full sm:w-auto">
             <GoldButton to="/book">
               Book a Lesson <ArrowRight size={16} />
             </GoldButton>

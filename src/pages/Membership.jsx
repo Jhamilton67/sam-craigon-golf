@@ -45,7 +45,7 @@ export default function Membership() {
   return (
     <div>
       {/* ── HERO (deep fairway) ──────────────────────────────── */}
-      <section className="relative bg-fairway-deep pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+      <section className="relative bg-fairway-deep pt-28 pb-14 md:pt-40 md:pb-20 overflow-hidden">
         <div className="absolute left-0 top-28 bottom-16 w-px bg-gradient-to-b from-transparent via-brass/40 to-transparent" />
         <div className="relative z-10 max-w-content mx-auto px-6 lg:px-10">
           <div className="max-w-2xl">

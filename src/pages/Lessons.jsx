@@ -62,14 +62,14 @@ export default function Lessons() {
       <section className="py-20 md:py-28 bg-fairway">
         <div className="max-w-content mx-auto px-6 lg:px-10 space-y-6">
           {/* Indoor Studio */}
-          <div className="reveal grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
+          <div className="reveal grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
             <div
-              className="h-64 lg:h-auto min-h-[18rem] bg-cover bg-center"
+              className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center"
               style={{ backgroundImage: "url('/images/studio.png')" }}
               role="img"
               aria-label="Indoor TrackMan golf studio"
             />
-            <div className="bg-fairway-deep/60 p-9 lg:p-12">
+            <div className="bg-fairway-deep/60 p-7 md:p-10 lg:p-12">
               <span className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light">
                 Indoor
               </span>
@@ -97,8 +97,8 @@ export default function Lessons() {
           </div>
 
           {/* On-Course */}
-          <div className="reveal grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
-            <div className="bg-fairway-deep/60 p-9 lg:p-12 order-2 lg:order-1">
+          <div className="reveal grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
+            <div className="bg-fairway-deep/60 p-7 md:p-10 lg:p-12 order-2 md:order-1">
               <span className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light">
                 On course
               </span>
@@ -124,7 +124,7 @@ export default function Lessons() {
               </GoldButton>
             </div>
             <div
-              className="h-64 lg:h-auto min-h-[18rem] bg-cover bg-center order-1 lg:order-2"
+              className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center order-1 md:order-2"
               style={{ backgroundImage: "url('/images/course.png')" }}
               role="img"
               aria-label="Parkland golf course at Uphall"
@@ -143,7 +143,7 @@ export default function Lessons() {
             Get in touch and Sam will help you decide the best starting point
             for your game.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-col sm:flex-wrap sm:flex-row justify-center gap-4">
             <GoldButton to="/book">
               Book now <ArrowRight size={16} />
             </GoldButton>

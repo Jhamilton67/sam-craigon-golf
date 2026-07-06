@@ -27,9 +27,9 @@ export default function About() {
             <SectionLabel>About Sam</SectionLabel>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 items-end">
             {/* Large photo */}
-            <div className="lg:col-span-5 reveal">
+            <div className="md:col-span-5 reveal">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5] border border-fairway-light/50">
                 <img
                   src="/images/sam-portrait.png"
@@ -40,7 +40,7 @@ export default function About() {
             </div>
 
             {/* Pull-quote intro */}
-            <div className="lg:col-span-7 reveal">
+            <div className="md:col-span-7 reveal">
               <p className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light mb-6">
                 Sam Craigon · PGA Professional
               </p>
@@ -56,8 +56,8 @@ export default function About() {
       {/* ── BIO (ivory) ──────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-ivory">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-7 reveal">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 items-start">
+            <div className="md:col-span-7 reveal">
               <div className="space-y-5 text-ink-soft text-base md:text-lg font-body leading-relaxed">
                 <p>
                   I am Sam Craigon, a PGA professional based at Uphall Golf Club,
@@ -88,7 +88,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-4">
                 <GoldButton to="/book">
                   Book a lesson <ArrowRight size={16} />
                 </GoldButton>
@@ -97,7 +97,7 @@ export default function About() {
             </div>
 
             {/* Credentials — instrument readout style */}
-            <div className="lg:col-span-5 reveal">
+            <div className="md:col-span-5 reveal">
               <div className="rounded-2xl border border-ink/10 bg-ivory-dark/50 overflow-hidden">
                 {credentials.map(({ k, v }, i) => (
                   <div

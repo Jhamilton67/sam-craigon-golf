@@ -43,7 +43,7 @@ export default function Fitting() {
       {/* ── PITCH (ivory) ────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-ivory">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
             <div className="reveal">
               <SectionLabel tone="light">Why fitting matters</SectionLabel>
               <h2 className="font-display text-3xl md:text-[2.75rem] text-ink font-semibold leading-[1.08] tracking-tight mb-6 text-balance">
@@ -66,7 +66,7 @@ export default function Fitting() {
             </div>
 
             <div
-              className="reveal rounded-2xl overflow-hidden h-80 lg:h-[26rem] bg-cover bg-center border border-ink/10"
+              className="reveal rounded-2xl overflow-hidden h-64 md:h-[26rem] bg-cover bg-center border border-ink/10"
               style={{ backgroundImage: "url('/images/fitting.png')" }}
               role="img"
               aria-label="Premium golf club heads laid out for a custom fitting"
@@ -122,7 +122,7 @@ export default function Fitting() {
             ))}
           </div>
 
-          <div className="reveal bg-fairway rounded-2xl p-9 md:p-12">
+          <div className="reveal bg-fairway rounded-2xl p-7 sm:p-9 md:p-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
               <div>
                 <h3 className="font-display text-2xl md:text-3xl text-bone font-semibold mb-4 tracking-tight">
