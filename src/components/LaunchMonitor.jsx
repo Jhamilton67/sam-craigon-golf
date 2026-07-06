@@ -64,13 +64,13 @@ function Stat({ label, value, unit, decimals, active, delay, tone }) {
   const labelColor = tone === 'light' ? 'text-ink-mute' : 'text-brass-light';
 
   return (
-    <div className="flex flex-col gap-1.5 px-1">
+    <div className="flex flex-col gap-1.5 min-w-0">
       <span className={`stat-label ${labelColor}`}>{label}</span>
-      <div className="flex items-baseline gap-1.5">
-        <span className={`stat-value text-2xl sm:text-3xl md:text-[2.1rem] leading-none ${valueColor}`}>
+      <div className="flex items-baseline gap-1 min-w-0">
+        <span className={`stat-value text-2xl md:text-[1.9rem] leading-none truncate ${valueColor}`}>
           {display}
         </span>
-        <span className={`font-mono text-[10px] uppercase tracking-wider ${unitColor}`}>
+        <span className={`font-mono text-[10px] uppercase tracking-wider shrink-0 ${unitColor}`}>
           {unit}
         </span>
       </div>
@@ -135,14 +135,14 @@ export default function LaunchMonitor({
         </span>
       </div>
 
-      {/* Stats — 2x2 on mobile, single row from sm up, with brass dividers */}
-      <div className="grid grid-cols-2 sm:flex sm:items-center sm:justify-between gap-y-6 gap-x-4">
+      {/* Stats — 2x2 grid on mobile, 4-column on sm+ with brass dividers */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-6">
         {stats.map((s, i) => (
-          <div key={s.label} className="flex items-center sm:flex-1">
+          <div key={s.label} className="relative min-w-0">
             <Stat {...s} active={active} delay={i * 140} tone={tone} />
             {i < stats.length - 1 && (
               <span
-                className={`hidden sm:block w-px h-12 ml-4 ${dividerColor}`}
+                className={`hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-10 ${dividerColor}`}
                 aria-hidden="true"
               />
             )}
