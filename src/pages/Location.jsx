@@ -87,7 +87,7 @@ export default function Location() {
             <div className="reveal space-y-6">
               <div
                 className="rounded-2xl overflow-hidden h-64 lg:h-72 bg-cover bg-center border border-ink/10"
-                style={{ backgroundImage: "url('/images/uphall-course.jpg')" }}
+                style={{ backgroundImage: "url('/images/uphall-gc-flag.jpg')" }}
                 role="img"
                 aria-label="Parkland golf course at Uphall Golf Club"
               />

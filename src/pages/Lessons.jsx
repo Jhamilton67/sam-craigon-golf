@@ -83,7 +83,7 @@ export default function Lessons() {
           <div className="reveal grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
             <div
               className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/studio.jpg')" }}
+              style={{ backgroundImage: "url('/images/trackman-studio.jpg')" }}
               role="img"
               aria-label="Indoor TrackMan golf studio"
             />
@@ -143,7 +143,7 @@ export default function Lessons() {
             </div>
             <div
               className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center order-1 md:order-2"
-              style={{ backgroundImage: "url('/images/course.jpg')" }}
+              style={{ backgroundImage: "url('/images/uphall-course.jpg')" }}
               role="img"
               aria-label="Parkland golf course at Uphall"
             />
