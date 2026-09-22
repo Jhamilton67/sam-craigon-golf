@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/((?!sitemap.xml|robots.txt|favicon-16x16.png|favicon-32x32.png|favicon-512x512.png|apple-touch-icon.png|llms.txt|221063b9e6eeb1e8519a656a6dc9ec6e.txt|images/.*|lessons|fitting|membership|about|location|book|privacy-policy|terms).*)", "destination": "/index.html" }
+    { "source": "/((?!sitemap.xml|robots.txt|favicon-16x16.png|favicon-32x32.png|favicon-512x512.png|apple-touch-icon.png|llms.txt|221063b9e6eeb1e8519a656a6dc9ec6e.txt|images/.*).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
