@@ -20,7 +20,23 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Loaded non-render-blocking: fetches in parallel via media="print",
+         then swaps to "all" once ready. Was costing ~800ms of blocked first
+         paint on mobile (confirmed via Lighthouse render-blocking-insight).
+         display=optional (not swap) so a page that's already painted never
+         reflows when the font arrives late — swap was causing a real ~0.19
+         CLS regression from Fraunces' metrics differing from the fallback
+         serif. optional trades "may occasionally show the fallback font on
+         a very slow first load" for "never shifts layout". -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=optional"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=optional" rel="stylesheet" />
+    </noscript>
 
     <!-- Google reCAPTCHA v3 — always loads regardless of cookie consent (not
          a tracker; protects forms from spam). Site key comes from
@@ -36,9 +52,9 @@
     <meta name="geo.position" content="55.9262854;-3.516173" />
     <meta name="ICBM" content="55.9262854, -3.516173" />
 
-    <!-- LocalBusiness structured data. sameAs (social profiles) and
-         openingHoursSpecification are intentionally omitted rather than
-         guessed — add real values here once known. -->
+    <!-- LocalBusiness structured data. sameAs (social profiles) is
+         intentionally omitted rather than guessed — add real values here
+         once known. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -66,6 +82,20 @@
         },
         "areaServed": [
           "Uphall", "Broxburn", "Livingston", "Bathgate", "West Lothian", "Edinburgh"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+            "opens": "09:00",
+            "closes": "19:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Friday",
+            "opens": "09:00",
+            "closes": "17:00"
+          }
         ],
         "founder": {
           "@type": "Person",

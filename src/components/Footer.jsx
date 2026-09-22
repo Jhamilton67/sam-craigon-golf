@@ -26,6 +26,8 @@ export default function Footer() {
               <img
                 src="/images/scg-logo-on-dark.png"
                 alt="Sam Craigon Golf"
+                width="837"
+                height="447"
                 className="h-10 w-auto mb-2"
               />
               <span className="block font-mono text-[10px] tracking-mega uppercase text-brass-light font-medium">
@@ -40,9 +42,9 @@ export default function Footer() {
           {/* Nav columns */}
           {footerLinks.map(({ heading, links }) => (
             <div key={heading}>
-              <h4 className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light mb-4">
+              <h3 className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light mb-4">
                 {heading}
-              </h4>
+              </h3>
               <ul className="space-y-2.5">
                 {links.map(({ to, label }) => (
                   <li key={to}>
@@ -60,9 +62,9 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light mb-4">
+            <h3 className="font-mono text-[10px] font-medium tracking-mega uppercase text-brass-light mb-4">
               Contact
-            </h4>
+            </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
                 <MapPin size={14} className="text-brass mt-0.5 shrink-0" />

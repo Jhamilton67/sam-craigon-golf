@@ -49,6 +49,8 @@ export default function Navbar() {
           <img
             src="/images/scg-logo-on-dark.png"
             alt="Sam Craigon Golf"
+            width="837"
+            height="447"
             className="h-8 md:h-10 w-auto transition-opacity duration-200 group-hover:opacity-80"
           />
           <span className="hidden sm:block font-mono text-[9px] md:text-[10px] tracking-mega uppercase text-brass-light font-medium leading-tight">

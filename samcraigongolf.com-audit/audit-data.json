@@ -1,0 +1,204 @@
+{
+  "summary": {
+    "health_score": 82,
+    "business_type": "Local service (in-person golf coaching, single location)",
+    "top_findings": [
+      "Mobile performance is poor (62/100, LCP 6.5s) versus desktop (90/100, LCP 1.5s) — the one real problem on an otherwise strong site",
+      "Two quantified WCAG color-contrast failures: brass-dark on ivory (4.33:1 vs 4.5:1 required), bone-mute on fairway (3.58:1 vs 4.5:1 required)",
+      "Heading hierarchy breaks in the footer — h2 to h4 with no h3 anywhere on the page",
+      "New logo images lack explicit width/height attributes (CLS risk)",
+      "FAQPage schema is correct but won't earn a Google rich snippet (policy restriction since Aug 2023, not a defect)"
+    ],
+    "quick_wins": [
+      "Load Google Fonts stylesheet non-blocking (~800ms mobile LCP improvement)",
+      "Darken brass-dark / lighten bone-mute slightly to pass contrast",
+      "Change footer h4 column headings to h3",
+      "Add explicit width/height to logo img tags",
+      "Add explicit Cache-Control headers for /assets and /images in vercel.json"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 88,
+      "what_works": [
+        "robots.txt with explicit AI crawler allowlist and sitemap directive",
+        "sitemap.xml with all 9 routes and lastmod dates",
+        "Per-page canonical URLs",
+        "Security headers (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy)",
+        "Clean URL structure",
+        "Verified prerendering solution built for the SPA JS-rendering gap (not yet wired into live build)",
+        "404 page tagged noindex",
+        "IndexNow verification key present"
+      ],
+      "findings": [
+        {
+          "title": "No explicit cache headers for static assets",
+          "severity": "Medium",
+          "description": "vercel.json's headers block covers security only; caching relies on unverified Vercel platform defaults.",
+          "recommendation": "Add Cache-Control: public, max-age=31536000, immutable for /assets/(.*) and /images/(.*)."
+        },
+        {
+          "title": "Render-blocking Google Fonts request",
+          "severity": "Low",
+          "description": "Confirmed via Lighthouse render-blocking-insight: fonts.googleapis.com CSS blocks first paint for ~827ms under mobile throttling.",
+          "recommendation": "Switch to async stylesheet loading pattern (media=print onload swap, or equivalent)."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 78,
+      "what_works": [
+        "Real, specific, non-generic copy across every page",
+        "Genuine E-E-A-T signals: PGA credential, first-person bio with specific history, named location, real contact details",
+        "Genuine FAQ content reused directly for FAQPage schema",
+        "Specific, plausible testimonials"
+      ],
+      "findings": [
+        {
+          "title": "No topical depth beyond core service pages",
+          "severity": "Medium",
+          "description": "No blog or long-form content answering adjacent questions; fine for core pages but limits long-tail/AI-answer-engine reach.",
+          "recommendation": "Consider secondary content if organic growth beyond branded search becomes a goal."
+        },
+        {
+          "title": "No aggregate review rating",
+          "severity": "Low",
+          "description": "Correctly not fabricated in schema. Real reviews would strengthen trust signals and local pack ranking.",
+          "recommendation": "Claim/optimize Google Business Profile; add AggregateRating schema once real reviews exist."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 82,
+      "what_works": [
+        "Unique title/meta description per page via a shared SEO component",
+        "Unique, keyword-relevant H1s per page",
+        "Internal linking between related service pages",
+        "BreadcrumbList schema on every sub-page"
+      ],
+      "findings": [
+        {
+          "title": "Heading hierarchy breaks in the footer",
+          "severity": "Medium",
+          "description": "Home.jsx/ui.jsx go h1->h2->h3->h2->h2->h2; Footer.jsx uses h4 for nav-column headings with no h3 anywhere before it in the document.",
+          "recommendation": "Change Footer.jsx's two <h4> column headings to <h3>."
+        },
+        {
+          "title": "Two WCAG color-contrast failures",
+          "severity": "Medium",
+          "description": "brass-dark (#8f6c3a) on ivory (#f6f3ec) = 4.33:1 (needs 4.5:1); bone-mute (#928f84) on fairway (#263e2e) = 3.58:1 (needs 4.5:1). Quantified via axe-core through Lighthouse.",
+          "recommendation": "Darken brass-dark slightly for text-on-ivory use; lighten bone-mute for text-on-fairway use."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 90,
+      "what_works": [
+        "LocalBusiness with full NAP, GeoCoordinates, areaServed, founder, and service catalog, verified consistent with visible page content",
+        "Service schema on Lessons/Fitting/Membership, each referencing the business via @id",
+        "FAQPage schema generated directly from the same data that renders visibly (no drift risk)",
+        "BreadcrumbList on every sub-page, Person schema on About"
+      ],
+      "findings": [
+        {
+          "title": "FAQPage won't earn a Google rich snippet",
+          "severity": "Info",
+          "description": "Google restricted this rich result to authoritative gov/health/well-known sites in Aug 2023. Schema is still valid and useful for AI answer engines.",
+          "recommendation": "No action needed — this is expectation-setting, not a defect."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 65,
+      "what_works": [
+        "Desktop Lighthouse Performance: 90, LCP 1.5s, TBT 0ms",
+        "CLS 0 on both desktop and mobile — the scroll-reveal animation system does not cause layout shift"
+      ],
+      "findings": [
+        {
+          "title": "Mobile performance is poor",
+          "severity": "High",
+          "description": "Mobile Lighthouse Performance: 62, LCP 6.5s, Speed Index 6.0s (real lab data, v13.5.0). Driven primarily by a render-blocking Google Fonts request (~827ms), reCAPTCHA's script (353KB, 63% unused), and an unsplit single JS bundle (42% unused per page).",
+          "recommendation": "Load fonts non-blocking first (biggest single lever); wire up prerendering; consider route-based code-splitting if the bundle grows."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 90,
+      "what_works": [
+        "llms.txt present following the llmstxt.org spec, with business summary and page links",
+        "robots.txt explicitly names every major AI crawler as allowed",
+        "Genuine FAQ content in clean Q&A format — good passage-level citability",
+        "Structured data gives AI crawlers unambiguous entity info"
+      ],
+      "findings": [
+        {
+          "title": "No citation-worthy aggregate statistics",
+          "severity": "Low",
+          "description": "LaunchMonitor numbers are illustrative example data, not real claimed outcomes.",
+          "recommendation": "Add real aggregate stats (e.g. member outcome data) if/when available — strong AI-citation material."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 80,
+      "what_works": [
+        "All photos converted PNG to JPEG at quality 82, ~86% total weight reduction, no visible quality loss",
+        "Descriptive, specific alt text throughout"
+      ],
+      "findings": [
+        {
+          "title": "Logo images missing explicit width/height",
+          "severity": "Low",
+          "description": "The two new SCG logo <img> tags (Navbar, Footer) are sized via Tailwind classes only, not HTML width/height attributes. Lighthouse flags this as a CLS risk.",
+          "recommendation": "Add explicit width/height attributes matching the 837:447 aspect ratio."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      { "name": "Phase 1: Critical Fixes", "timeframe": "Before/at launch", "items": [] },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "This week",
+        "items": [
+          "Load Google Fonts non-blocking (biggest mobile LCP lever)",
+          "Wire prerendering into the live Vercel build once verified on a preview"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "This month",
+        "items": [
+          "Fix two color-contrast failures",
+          "Fix footer heading hierarchy (h4 -> h3)",
+          "Add explicit width/height to logo images",
+          "Add explicit Cache-Control headers for static assets",
+          "Consider route-based code-splitting if bundle grows"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Claim/optimize Google Business Profile once live",
+          "Add AggregateRating schema once real reviews exist",
+          "Re-run this audit after font/prerendering fixes land",
+          "Consider secondary long-tail content if organic growth becomes a goal"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

@@ -28,13 +28,13 @@ export default {
         brass: {
           DEFAULT: '#B68A4E',
           light: '#C9A066',
-          dark: '#8F6C3A',
+          dark: '#835F35',   // WCAG AA (4.5:1) on ivory — was #8F6C3A at 4.33:1
         },
         // Off-white text on dark
         bone: {
           DEFAULT: '#F3F0E8',
           soft: '#C9C6BB',   // muted body on dark
-          mute: '#928F84',   // captions on dark
+          mute: '#AEABA0',   // captions on dark — WCAG AA (4.5:1+) on fairway tones, was #928F84 at 3.58:1
         },
         // Charcoal text on light
         ink: {

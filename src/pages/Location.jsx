@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, ExternalLink, Trees, Coffee, Car, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, ExternalLink, Trees, Coffee, Car, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, SectionLabel } from '../components/ui';
 import SEO from '../components/SEO';
@@ -125,6 +125,7 @@ export default function Location() {
                   { icon: MapPin, label: 'Address', value: '182 Station Road, Uphall, Broxburn, EH52 6JT', href: 'https://maps.google.com/?q=Uphall+Golf+Course+182+Station+Rd+Uphall+Broxburn+EH52+6JT' },
                   { icon: Phone, label: 'Phone', value: '01506 856404', href: 'tel:01506856404' },
                   { icon: Mail, label: 'Email', value: 'Sam@samcraigongolf.com', href: 'mailto:Sam@samcraigongolf.com' },
+                  { icon: Clock, label: 'Hours', value: <>Mon–Thu 9am–7pm<br />Fri 9am–5pm<br />Sat–Sun Closed</>, href: null },
                 ].map(({ icon: Icon, label, value, href }) => (
                   <div key={label} className="flex items-start gap-4">
                     <div className="w-9 h-9 rounded-md bg-brass/10 border border-brass/25 flex items-center justify-center shrink-0 mt-0.5">
