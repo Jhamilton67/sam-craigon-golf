@@ -85,9 +85,9 @@ export default function Fitting() {
 
             <div
               className="reveal rounded-2xl overflow-hidden h-64 md:h-[26rem] bg-cover bg-center border border-ink/10"
-              style={{ backgroundImage: "url('/images/fitting.jpg')" }}
+              style={{ backgroundImage: "url('/images/trackman-studio.jpg')" }}
               role="img"
-              aria-label="Premium golf club heads laid out for a custom fitting"
+              aria-label="Sam Craigon's TrackMan fitting studio, showing the simulator bay and launch monitor display"
             />
           </div>
         </div>
