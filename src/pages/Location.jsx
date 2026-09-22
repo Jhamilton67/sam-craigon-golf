@@ -86,10 +86,10 @@ export default function Location() {
             {/* Course image + info */}
             <div className="reveal space-y-6">
               <div
-                className="rounded-2xl overflow-hidden h-64 lg:h-72 bg-cover bg-center border border-ink/10"
-                style={{ backgroundImage: "url('/images/uphall-course.jpg')" }}
+                className="rounded-2xl overflow-hidden h-64 lg:h-72 bg-cover border border-ink/10"
+                style={{ backgroundImage: "url('/images/uphall-flag.jpg')", backgroundPosition: 'center 15%' }}
                 role="img"
-                aria-label="Parkland golf course at Uphall Golf Club"
+                aria-label="Uphall Golf Club flag on the green"
               />
               <div className="bg-ivory-dark/60 border border-ink/10 rounded-2xl p-7">
                 <h3 className="font-display text-xl text-ink font-semibold mb-3">The course</h3>
