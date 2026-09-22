@@ -26,8 +26,8 @@ export default function Footer() {
               <img
                 src="/images/scg-logo-on-dark.png"
                 alt="Sam Craigon Golf"
-                width="837"
-                height="447"
+                width="726"
+                height="431"
                 className="h-10 w-auto mb-2"
               />
               <span className="block font-mono text-[10px] tracking-mega uppercase text-brass-light font-medium">
@@ -95,9 +95,18 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-fairway-light/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-bone-mute text-xs font-body">
-            © {new Date().getFullYear()} Sam Craigon Golf. All rights reserved.
-          </p>
+          <div className="text-bone-mute text-xs font-body text-center sm:text-left">
+            <p>© {new Date().getFullYear()} Sam Craigon Golf. All rights reserved.</p>
+            <a
+              href="https://www.hamiltontechconsulting.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-block underline hover:text-bone-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-brass rounded transition-colors duration-200"
+              aria-label="Hamilton Tech Consulting website - opens in new window"
+            >
+              Designed by: Hamilton Tech Consulting
+            </a>
+          </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link to="/privacy-policy" className="text-bone-mute text-xs font-body hover:text-bone-soft transition-colors duration-200">
               Privacy Policy

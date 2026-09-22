@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 export const SITE_URL = 'https://samcraigongolf.com';
 export const BUSINESS_ID = `${SITE_URL}/#business`;
 const SITE_NAME = 'Sam Craigon Golf';
-const DEFAULT_IMAGE = `${SITE_URL}/images/studio.jpg`;
+const DEFAULT_IMAGE = `${SITE_URL}/images/og-image.jpg`;
 
 function setMetaByAttr(attr, key, content) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`);
