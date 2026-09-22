@@ -43,14 +43,16 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           to="/"
-          className="flex flex-col leading-none group"
+          className="flex items-center gap-3 group"
           onClick={() => setOpen(false)}
         >
-          <span className="font-display text-lg md:text-xl font-semibold text-bone tracking-tight group-hover:text-brass-light transition-colors duration-200">
-            Sam Craigon
-          </span>
-          <span className="font-mono text-[9px] md:text-[10px] tracking-mega uppercase text-brass-light font-medium mt-0.5">
-            Golf · PGA Professional
+          <img
+            src="/images/scg-logo-on-dark.png"
+            alt="Sam Craigon Golf"
+            className="h-8 md:h-10 w-auto transition-opacity duration-200 group-hover:opacity-80"
+          />
+          <span className="hidden sm:block font-mono text-[9px] md:text-[10px] tracking-mega uppercase text-brass-light font-medium leading-tight">
+            Golf · PGA<br />Professional
           </span>
         </Link>
 

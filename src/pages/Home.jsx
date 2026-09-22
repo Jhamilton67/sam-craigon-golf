@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, GhostButton, SectionLabel } from '../components/ui';
+import SEO from '../components/SEO';
 
 const pillars = [
   {
@@ -57,6 +58,12 @@ export default function Home() {
 
   return (
     <div>
+      <SEO
+        title="PGA Golf Coaching, TrackMan Fitting & Studio Membership"
+        description="Sam Craigon Golf at Uphall Golf Club, West Lothian — PGA professional coaching, TrackMan custom fitting, and year-round studio membership."
+        path="/"
+        keywords="golf lessons West Lothian, PGA golf coach Uphall, TrackMan fitting Scotland, golf studio membership, golf lessons Edinburgh, golf coaching Broxburn Livingston"
+      />
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative bg-fairway-deep overflow-hidden">
         {/* faint brass edge line */}

@@ -1,6 +1,7 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, GhostButton, SectionLabel } from '../components/ui';
 import { ArrowRight } from 'lucide-react';
+import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
 const credentials = [
   { k: 'Qualification', v: 'PGA Professional' },
@@ -20,6 +21,22 @@ export default function About() {
 
   return (
     <div>
+      <SEO
+        title="About Sam Craigon"
+        description="Meet Sam Craigon, PGA Professional at Uphall Golf Club. Honest, data-led coaching built around how you actually swing."
+        path="/about"
+        keywords="Sam Craigon PGA professional, golf coach Uphall Golf Club, PGA golf instructor West Lothian"
+        breadcrumb={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]}
+        jsonLd={[{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Sam Craigon',
+          jobTitle: 'PGA Professional',
+          image: `${SITE_URL}/images/sam-portrait.jpg`,
+          worksFor: { '@id': BUSINESS_ID },
+          url: `${SITE_URL}/about`,
+        }]}
+      />
       {/* ── EDITORIAL PROFILE (deep fairway) ─────────────────── */}
       <section className="bg-fairway-deep pt-32 pb-16 md:pt-40 md:pb-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
@@ -32,7 +49,7 @@ export default function About() {
             <div className="md:col-span-5 reveal">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5] border border-fairway-light/50">
                 <img
-                  src="/images/sam-portrait.png"
+                  src="/images/sam-portrait.jpg"
                   alt="Sam Craigon, PGA Professional at Uphall Golf Club"
                   className="w-full h-full object-cover"
                 />

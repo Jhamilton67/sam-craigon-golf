@@ -1,6 +1,7 @@
 import { ArrowRight, CircleCheck as CheckCircle } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, SectionLabel, PageHero } from '../components/ui';
+import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
 const heroStats = [
   { label: 'Ball Speed', value: 154.6, unit: 'mph', decimals: 1 },
@@ -31,6 +32,23 @@ export default function Fitting() {
 
   return (
     <div>
+      <SEO
+        title="TrackMan Custom Club Fitting"
+        description="Full TrackMan custom fitting at Uphall Golf Club. Get a data-backed spec sheet for your driver, irons and wedges — not just a feeling."
+        path="/fitting"
+        keywords="TrackMan fitting West Lothian, custom golf club fitting Scotland, driver fitting Uphall, golf club fitting Edinburgh, iron fitting Broxburn"
+        breadcrumb={[{ name: 'Home', path: '/' }, { name: 'Custom Fitting', path: '/fitting' }]}
+        jsonLd={[{
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          serviceType: 'Golf Club Fitting',
+          name: 'TrackMan Custom Club Fitting at Uphall Golf Club',
+          description: 'Full TrackMan custom fitting across the bag, producing a data-backed spec sheet for driver, irons, and wedges.',
+          provider: { '@id': BUSINESS_ID },
+          areaServed: ['West Lothian', 'Edinburgh', 'Livingston', 'Broxburn'],
+          url: `${SITE_URL}/fitting`,
+        }]}
+      />
       <PageHero
         label="Custom Fitting"
         title="Equipment fitted to your swing. Not someone else's."
@@ -67,7 +85,7 @@ export default function Fitting() {
 
             <div
               className="reveal rounded-2xl overflow-hidden h-64 md:h-[26rem] bg-cover bg-center border border-ink/10"
-              style={{ backgroundImage: "url('/images/fitting.png')" }}
+              style={{ backgroundImage: "url('/images/fitting.jpg')" }}
               role="img"
               aria-label="Premium golf club heads laid out for a custom fitting"
             />

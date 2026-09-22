@@ -1,12 +1,20 @@
 import { MapPin, Phone, Mail, ExternalLink, Trees, Coffee, Car, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, SectionLabel } from '../components/ui';
+import SEO from '../components/SEO';
 
 export default function Location() {
   useScrollReveal();
 
   return (
     <div>
+      <SEO
+        title="Location — Uphall Golf Club"
+        description="Find Sam Craigon Golf at Uphall Golf Club, West Lothian. Studio, coaching and custom fitting all under one roof, with a parkland course on the doorstep."
+        path="/location"
+        keywords="Uphall Golf Club address, golf coaching West Lothian, TrackMan studio Broxburn, golf club Uphall EH52"
+        breadcrumb={[{ name: 'Home', path: '/' }, { name: 'Location', path: '/location' }]}
+      />
       {/* ── HERO (deep fairway) ──────────────────────────────── */}
       <section className="relative bg-fairway-deep pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         <div className="absolute left-0 top-28 bottom-16 w-px bg-gradient-to-b from-transparent via-brass/40 to-transparent" />
@@ -79,7 +87,7 @@ export default function Location() {
             <div className="reveal space-y-6">
               <div
                 className="rounded-2xl overflow-hidden h-64 lg:h-72 bg-cover bg-center border border-ink/10"
-                style={{ backgroundImage: "url('/images/course.png')" }}
+                style={{ backgroundImage: "url('/images/uphall-course.jpg')" }}
                 role="img"
                 aria-label="Parkland golf course at Uphall Golf Club"
               />
@@ -114,7 +122,7 @@ export default function Location() {
 
               <div className="space-y-5">
                 {[
-                  { icon: MapPin, label: 'Address', value: 'Uphall Golf Club, West Lothian', href: null },
+                  { icon: MapPin, label: 'Address', value: '182 Station Road, Uphall, Broxburn, EH52 6JT', href: 'https://maps.google.com/?q=Uphall+Golf+Course+182+Station+Rd+Uphall+Broxburn+EH52+6JT' },
                   { icon: Phone, label: 'Phone', value: '01506 856404', href: 'tel:01506856404' },
                   { icon: Mail, label: 'Email', value: 'Sam@samcraigongolf.com', href: 'mailto:Sam@samcraigongolf.com' },
                 ].map(({ icon: Icon, label, value, href }) => (
@@ -125,7 +133,14 @@ export default function Location() {
                     <div>
                       <p className="font-mono text-[10px] font-medium tracking-widest uppercase text-bone-mute mb-1">{label}</p>
                       {href ? (
-                        <a href={href} className="text-bone text-base font-body hover:text-brass-light transition-colors duration-200">{value}</a>
+                        <a
+                          href={href}
+                          target={href.startsWith('http') ? '_blank' : undefined}
+                          rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          className="text-bone text-base font-body hover:text-brass-light transition-colors duration-200"
+                        >
+                          {value}
+                        </a>
                       ) : (
                         <p className="text-bone text-base font-body">{value}</p>
                       )}
@@ -135,22 +150,19 @@ export default function Location() {
               </div>
             </div>
 
-            {/* Map placeholder */}
+            {/* Map embed */}
             <div className="reveal">
-              <div className="rounded-2xl overflow-hidden bg-fairway-deep/50 border border-fairway-light/50 h-80 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin size={28} className="text-brass mx-auto mb-3" />
-                  <p className="text-bone text-sm font-body mb-1">Uphall Golf Club</p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-bone-mute">West Lothian, Scotland</p>
-                  <a
-                    href="https://maps.google.com/?q=Uphall+Golf+Club+West+Lothian"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-5 text-brass-light text-xs font-semibold font-body uppercase tracking-wide hover:text-brass transition-colors duration-200"
-                  >
-                    Open in maps <ExternalLink size={12} />
-                  </a>
-                </div>
+              <div className="rounded-2xl overflow-hidden border border-fairway-light/50 h-80">
+                <iframe
+                  src="https://maps.google.com/maps?q=Uphall+Golf+Club+182+Station+Road+Uphall+Broxburn+EH52+6JT&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Map showing Uphall Golf Club, West Lothian"
+                />
               </div>
             </div>
           </div>

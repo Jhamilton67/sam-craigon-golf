@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    { "source": "/((?!sitemap.xml|robots.txt|favicon.svg|llms.txt|221063b9e6eeb1e8519a656a6dc9ec6e.txt|images/.*|lessons|fitting|membership|about|location|book|privacy-policy|terms).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
+}

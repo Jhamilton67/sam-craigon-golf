@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import { reopenCookieBanner } from './CookieConsent';
 
 const footerLinks = [
   { heading: 'Services', links: [
@@ -22,10 +23,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
-              <span className="block font-display text-xl font-semibold text-bone">
-                Sam Craigon
-              </span>
-              <span className="block font-mono text-[10px] tracking-mega uppercase text-brass-light font-medium mt-1">
+              <img
+                src="/images/scg-logo-on-dark.png"
+                alt="Sam Craigon Golf"
+                className="h-10 w-auto mb-2"
+              />
+              <span className="block font-mono text-[10px] tracking-mega uppercase text-brass-light font-medium">
                 Golf · PGA Professional
               </span>
             </Link>
@@ -64,7 +67,7 @@ export default function Footer() {
               <li className="flex items-start gap-2.5">
                 <MapPin size={14} className="text-brass mt-0.5 shrink-0" />
                 <span className="text-bone-soft text-sm font-body leading-relaxed">
-                  Uphall Golf Club,<br />West Lothian
+                  Uphall Golf Club<br />182 Station Road, Uphall<br />Broxburn, EH52 6JT
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
@@ -89,10 +92,24 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-fairway-light/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-12 pt-6 border-t border-fairway-light/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-bone-mute text-xs font-body">
             © {new Date().getFullYear()} Sam Craigon Golf. All rights reserved.
           </p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <Link to="/privacy-policy" className="text-bone-mute text-xs font-body hover:text-bone-soft transition-colors duration-200">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="text-bone-mute text-xs font-body hover:text-bone-soft transition-colors duration-200">
+              Terms of Use
+            </Link>
+            <button
+              onClick={reopenCookieBanner}
+              className="text-bone-mute text-xs font-body hover:text-bone-soft transition-colors duration-200"
+            >
+              Cookie preferences
+            </button>
+          </div>
           <p className="font-mono text-[10px] uppercase tracking-widest text-bone-mute">
             PGA Professional · Uphall Golf Club
           </p>

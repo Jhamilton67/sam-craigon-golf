@@ -1,6 +1,7 @@
 import { CircleCheck as CheckCircle, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, GhostButton, SectionLabel, PageHero } from '../components/ui';
+import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
 const heroStats = [
   { label: 'Club Path', value: 2.1, unit: '°', decimals: 1 },
@@ -30,6 +31,23 @@ export default function Lessons() {
 
   return (
     <div>
+      <SEO
+        title="Golf Lessons"
+        description="PGA professional golf lessons at Uphall Golf Club. TrackMan-powered studio coaching and on-course sessions, tailored to your swing."
+        path="/lessons"
+        keywords="golf lessons Uphall, PGA golf coaching West Lothian, TrackMan golf lessons, on-course golf lessons Scotland, golf coach Broxburn"
+        breadcrumb={[{ name: 'Home', path: '/' }, { name: 'Golf Lessons', path: '/lessons' }]}
+        jsonLd={[{
+          '@context': 'https://schema.org',
+          '@type': 'Service',
+          serviceType: 'Golf Lessons',
+          name: 'PGA Golf Lessons at Uphall Golf Club',
+          description: 'TrackMan-powered studio coaching and on-course golf lessons with a PGA professional.',
+          provider: { '@id': BUSINESS_ID },
+          areaServed: ['West Lothian', 'Edinburgh', 'Livingston', 'Broxburn'],
+          url: `${SITE_URL}/lessons`,
+        }]}
+      />
       <PageHero
         label="Golf Lessons"
         title="Coaching that changes how you play."
@@ -65,7 +83,7 @@ export default function Lessons() {
           <div className="reveal grid grid-cols-1 md:grid-cols-2 rounded-2xl overflow-hidden border border-fairway-light/50">
             <div
               className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center"
-              style={{ backgroundImage: "url('/images/studio.png')" }}
+              style={{ backgroundImage: "url('/images/studio.jpg')" }}
               role="img"
               aria-label="Indoor TrackMan golf studio"
             />
@@ -125,7 +143,7 @@ export default function Lessons() {
             </div>
             <div
               className="h-56 md:h-auto min-h-[16rem] bg-cover bg-center order-1 md:order-2"
-              style={{ backgroundImage: "url('/images/course.png')" }}
+              style={{ backgroundImage: "url('/images/course.jpg')" }}
               role="img"
               aria-label="Parkland golf course at Uphall"
             />

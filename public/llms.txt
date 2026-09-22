@@ -1,0 +1,20 @@
+# Sam Craigon Golf
+
+> PGA Professional golf coaching, TrackMan custom club fitting, and year-round indoor studio membership at Uphall Golf Club, West Lothian, Scotland.
+
+Sam Craigon Golf is based at Uphall Golf Club, 182 Station Road, Uphall, Broxburn, EH52 6JT, Scotland. Services are studio and on-course golf lessons with a PGA professional, full-bag TrackMan custom club fitting, and tiered indoor studio membership (Bronze, Silver, Gold, and a 3-month pass). Contact: 01506 856404, Sam@samcraigongolf.com.
+
+## Pages
+
+- [Home](https://samcraigongolf.com/): Overview of coaching, fitting, and membership services.
+- [Golf Lessons](https://samcraigongolf.com/lessons): PGA studio and on-course coaching, TrackMan data on every session.
+- [Custom Fitting](https://samcraigongolf.com/fitting): Full TrackMan custom fitting across driver, irons, and wedges.
+- [Studio Membership](https://samcraigongolf.com/membership): Bronze, Silver, Gold, and 3-month pass tiers with pricing and FAQs.
+- [About](https://samcraigongolf.com/about): About Sam Craigon, PGA Professional.
+- [Location](https://samcraigongolf.com/location): Address, directions, and details on Uphall Golf Club.
+- [Book](https://samcraigongolf.com/book): How to book a lesson, fitting, or session.
+
+## Optional
+
+- [Privacy Policy](https://samcraigongolf.com/privacy-policy)
+- [Terms of Use](https://samcraigongolf.com/terms)

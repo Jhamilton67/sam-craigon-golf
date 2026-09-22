@@ -1,6 +1,7 @@
 import { Check, ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, GhostButton, SectionLabel } from '../components/ui';
+import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
 const tiers = [
   {
@@ -44,6 +45,41 @@ export default function Membership() {
 
   return (
     <div>
+      <SEO
+        title="Studio Membership"
+        description="Year-round TrackMan studio membership at Uphall Golf Club. Bronze, Silver, Gold and 3-month pass options for regular, high-quality practice."
+        path="/membership"
+        keywords="golf studio membership West Lothian, TrackMan studio Uphall, indoor golf practice Scotland, golf membership Broxburn Livingston"
+        breadcrumb={[{ name: 'Home', path: '/' }, { name: 'Studio Membership', path: '/membership' }]}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Service',
+            serviceType: 'Golf Studio Membership',
+            name: 'TrackMan Studio Membership at Uphall Golf Club',
+            description: 'Year-round indoor TrackMan studio access on Bronze, Silver, Gold, or 3-month pass tiers.',
+            provider: { '@id': BUSINESS_ID },
+            areaServed: ['West Lothian', 'Edinburgh', 'Livingston', 'Broxburn'],
+            url: `${SITE_URL}/membership`,
+            offers: tiers.map((tier) => ({
+              '@type': 'Offer',
+              name: `${tier.name} Membership`,
+              price: tier.price,
+              priceCurrency: 'GBP',
+              description: tier.description,
+            })),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.q,
+              acceptedAnswer: { '@type': 'Answer', text: faq.a },
+            })),
+          },
+        ]}
+      />
       {/* ── HERO (deep fairway) ──────────────────────────────── */}
       <section className="relative bg-fairway-deep pt-28 pb-14 md:pt-40 md:pb-20 overflow-hidden">
         <div className="absolute left-0 top-28 bottom-16 w-px bg-gradient-to-b from-transparent via-brass/40 to-transparent" />

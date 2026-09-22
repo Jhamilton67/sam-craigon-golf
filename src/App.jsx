@@ -9,6 +9,10 @@ import Membership from './pages/Membership';
 import About from './pages/About';
 import Location from './pages/Location';
 import Book from './pages/Book';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import NotFound from './pages/NotFound';
+import CookieConsent from './components/CookieConsent';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,9 +35,13 @@ export default function App() {
             <Route path="/about"      element={<About />} />
             <Route path="/location"   element={<Location />} />
             <Route path="/book"       element={<Book />} />
+            <Route path="/privacy-policy" element={<Privacy />} />
+            <Route path="/terms"      element={<Terms />} />
+            <Route path="*"           element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
+        <CookieConsent />
       </div>
     </BrowserRouter>
   );
