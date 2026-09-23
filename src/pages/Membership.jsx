@@ -164,7 +164,7 @@ export default function Membership() {
                       </li>
                     ))}
                   </ul>
-                  <GoldButton to="/book" className="w-full justify-center">
+                  <GoldButton href="https://calendly.com/samcraigongolf/studio-session" className="w-full justify-center">
                     Get started
                   </GoldButton>
                 </div>
