@@ -182,6 +182,9 @@ export async function POST(request) {
         `Weekly ${tier.name} membership limit (${tier.weeklyLimit}/week) already reached.`
       );
 
+      const sessionLabel = tier.weeklyLimit > 1 ? `${tier.weeklyLimit} sessions` : '1 session';
+      const bookedTime = new Date(scheduledEvent.start_time).toLocaleString('en-GB', { timeZone: 'Europe/London' });
+
       const samEmail = process.env.SAM_NOTIFICATION_EMAIL || 'Sam@samcraigongolf.com';
       await sendEmail({
         to: samEmail,
@@ -189,10 +192,25 @@ export async function POST(request) {
         html: `
           <p><strong>${bookerName}</strong> (${bookerEmail}) tried to book another ${tier.name} studio session
           this week, on top of ${activeThisWeek.length - 1} already booked.</p>
-          <p>Their ${tier.name} membership allows <strong>${tier.weeklyLimit} session${tier.weeklyLimit > 1 ? 's' : ''} per week</strong>,
-          so the new booking (${new Date(scheduledEvent.start_time).toLocaleString('en-GB', { timeZone: 'Europe/London' })})
-          was automatically cancelled.</p>
+          <p>Their ${tier.name} membership allows <strong>${sessionLabel} per week</strong>,
+          so the new booking (${bookedTime}) was automatically cancelled.</p>
           <p>If this was a mistake, you'll need to rebook it manually.</p>
+        `,
+      });
+
+      await sendEmail({
+        to: bookerEmail,
+        subject: `Your booking on ${bookedTime} has been cancelled`,
+        html: `
+          <p>Hi ${bookerName},</p>
+          <p>Your ${tier.name} membership includes <strong>${sessionLabel} per week</strong>, and you've already
+          used that allowance for this week. Your new booking for <strong>${bookedTime}</strong> has been
+          automatically cancelled to reflect this.</p>
+          <p>You're welcome to book again from next Monday, or get in touch with Sam directly if you think
+          this is a mistake or would like to discuss upgrading your membership.</p>
+          <p>Sam Craigon Golf<br />
+          <a href="tel:01506856404">01506 856404</a> ·
+          <a href="mailto:Sam@samcraigongolf.com">Sam@samcraigongolf.com</a></p>
         `,
       });
     }
