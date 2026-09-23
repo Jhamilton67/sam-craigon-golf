@@ -3,6 +3,8 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, SectionLabel, PageHero } from '../components/ui';
 import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
+const CUSTOM_FITTING_URL = 'https://calendly.com/samcraigongolf/custom-fitting';
+
 const heroStats = [
   { label: 'Ball Speed', value: 154.6, unit: 'mph', decimals: 1 },
   { label: 'Spin', value: 2410, unit: 'rpm', decimals: 0 },
@@ -53,7 +55,7 @@ export default function Fitting() {
         label="Custom Fitting"
         title="Equipment fitted to your swing. Not someone else's."
         subtitle="No two golfers swing the same. TrackMan fitting removes the guesswork and gives you hard numbers to shop from."
-        cta="/book"
+        ctaHref={CUSTOM_FITTING_URL}
         ctaLabel="Book a Fitting"
         stats={heroStats}
       />
@@ -78,7 +80,7 @@ export default function Fitting() {
                 identifies the exact specs that will improve distance, accuracy,
                 and consistency for <em>your</em> swing.
               </p>
-              <GoldButton to="/book">
+              <GoldButton href={CUSTOM_FITTING_URL}>
                 Book a fitting <ArrowRight size={16} />
               </GoldButton>
             </div>
@@ -150,7 +152,7 @@ export default function Fitting() {
                   Book a TrackMan fitting and leave with a spec sheet, not just
                   a feeling.
                 </p>
-                <GoldButton to="/book">
+                <GoldButton href={CUSTOM_FITTING_URL}>
                   Book a fitting <ArrowRight size={16} />
                 </GoldButton>
               </div>

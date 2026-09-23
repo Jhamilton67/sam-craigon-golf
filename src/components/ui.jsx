@@ -34,8 +34,10 @@ export function SectionLabel({ children, tone = 'dark' }) {
   );
 }
 
-/* Reusable page header. Optionally shows the condensed launch-monitor motif. */
-export function PageHero({ label, title, subtitle, cta, ctaLabel = 'Book a Lesson', stats }) {
+/* Reusable page header. Optionally shows the condensed launch-monitor motif.
+   Pass either `cta` (an in-app route) or `ctaHref` (an external link, e.g.
+   straight to a Calendly booking page) — not both. */
+export function PageHero({ label, title, subtitle, cta, ctaHref, ctaLabel = 'Book a Lesson', stats }) {
   return (
     <section className="relative bg-fairway-deep pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
       {/* faint brass edge */}
@@ -53,9 +55,9 @@ export function PageHero({ label, title, subtitle, cta, ctaLabel = 'Book a Lesso
                 {subtitle}
               </p>
             )}
-            {cta && (
+            {(cta || ctaHref) && (
               <div className="mt-8 animate-fade-up delay-300 opacity-0-start">
-                <GoldButton to={cta}>{ctaLabel}</GoldButton>
+                <GoldButton to={cta} href={ctaHref}>{ctaLabel}</GoldButton>
               </div>
             )}
           </div>

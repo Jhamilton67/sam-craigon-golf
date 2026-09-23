@@ -3,26 +3,38 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { GoldButton, GhostButton, SectionLabel } from '../components/ui';
 import SEO, { SITE_URL, BUSINESS_ID } from '../components/SEO';
 
+// Each tier books through its own distinct Calendly event — that's how the
+// weekly-limit enforcement (api/calendly-webhook.js) tells tiers apart, so
+// these must never point at the same event as another enforced tier.
+const BRONZE_URL = 'https://calendly.com/samcraigongolf/studio-session';
+const SILVER_URL = 'https://calendly.com/samcraigongolf/silver-studio-session';
+const GOLD_URL = 'https://calendly.com/samcraigongolf/gold-studio-session';
+const THREE_MONTH_URL = 'https://calendly.com/samcraigongolf/unlimited-studio-session';
+
 const tiers = [
   {
     name: 'Bronze', price: '39', period: '/month', featured: false, tag: null,
     description: 'A great entry point for structured weekly studio time at a fair price.',
     features: ['1 off-peak session per week', 'Weekend access after 2pm', 'TrackMan data on every session', 'All-weather indoor studio'],
+    bookingUrl: BRONZE_URL,
   },
   {
     name: 'Silver', price: '69', period: '/month', featured: false, tag: null,
     description: 'For the committed golfer who wants to practice several times a week.',
     features: ['Up to 3 sessions per week', 'Peak and off-peak access', 'Priority booking', 'TrackMan data on every session', 'All-weather indoor studio'],
+    bookingUrl: SILVER_URL,
   },
   {
     name: 'Gold', price: '119', period: '/month', featured: true, tag: 'Best value',
     description: 'Unlimited access with priority booking and complimentary guest passes.',
     features: ['Unlimited sessions', 'Peak and off-peak access', 'Priority booking guaranteed', 'Guests included free of charge', 'TrackMan data on every session', 'All-weather indoor studio'],
+    bookingUrl: GOLD_URL,
   },
   {
     name: '3-Month Pass', price: '199', period: 'one-off', featured: false, tag: null,
     description: 'A single payment locking in three months of structured practice.',
     features: ['2 sessions per week for 3 months', 'Peak and off-peak access', 'Guests at £2.50 per session', 'TrackMan data on every session', 'All-weather indoor studio'],
+    bookingUrl: THREE_MONTH_URL,
   },
 ];
 
@@ -125,7 +137,7 @@ export default function Membership() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4 items-stretch">
-            {tiers.map(({ name, price, period, featured, tag, description, features }, i) => (
+            {tiers.map(({ name, price, period, featured, tag, description, features, bookingUrl }, i) => (
               <div
                 key={name}
                 className={`reveal relative flex flex-col rounded-2xl border transition-all duration-200 ${
@@ -164,7 +176,7 @@ export default function Membership() {
                       </li>
                     ))}
                   </ul>
-                  <GoldButton href="https://calendly.com/samcraigongolf/studio-session" className="w-full justify-center">
+                  <GoldButton href={bookingUrl} className="w-full justify-center">
                     Get started
                   </GoldButton>
                 </div>
