@@ -139,8 +139,19 @@ function emailShell({ eyebrow, heading, bodyHtml }) {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#F6F3EC;border-radius:12px;overflow:hidden;border:1px solid #E3DED0;">
             <tr>
               <td style="background-color:#0E241C;padding:28px 32px;">
-                <img src="https://www.samcraigongolf.com/images/scg-logo-on-dark.png" alt="Sam Craigon Golf" width="140" height="83" style="display:block;width:140px;height:auto;border:0;" />
-                <div style="height:2px;width:36px;background-color:#B68A4E;margin-top:14px;"></div>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="vertical-align:middle;">
+                      <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;color:#F3F0E8;letter-spacing:0.02em;">
+                        Sam Craigon <span style="color:#C9A066;font-style:italic;">Golf</span>
+                      </div>
+                      <div style="height:2px;width:36px;background-color:#B68A4E;margin-top:14px;"></div>
+                    </td>
+                    <td style="vertical-align:middle;text-align:right;width:64px;">
+                      <img src="https://www.samcraigongolf.com/images/scg-logo-on-dark.png" alt="Sam Craigon Golf" width="56" height="33" style="display:inline-block;width:56px;height:auto;border:0;" />
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
             <tr>
@@ -236,7 +247,7 @@ async function sendBookingConfirmationEmail({ scheduledEvent, bookerEmail, booke
       heading: `Your ${eventName} is booked in`,
       bodyHtml: `
         <p style="margin:0 0 20px;">Hi ${safeName},</p>
-        <p style="margin:0 0 20px;">Thanks for booking with Sam Craigon Golf — here are your session details.</p>
+        <p style="margin:0 0 20px;">Thanks for booking with Sam Craigon Golf. Here are your session details.</p>
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
           ${detailRow('Session', eventName)}
           ${detailRow('Date', dateLabel)}
@@ -323,7 +334,7 @@ export async function POST(request) {
         const samEmail = process.env.SAM_NOTIFICATION_EMAIL || 'Sam@samcraigongolf.com';
         await sendEmail({
           to: samEmail,
-          subject: `Booking auto-cancelled — ${bookerName} exceeded ${tier.name} weekly limit`,
+          subject: `Booking auto-cancelled: ${bookerName} exceeded ${tier.name} weekly limit`,
           html: emailShell({
             eyebrow: 'Auto-cancellation alert',
             heading: `${safeName} went over their ${tier.name} weekly limit`,
