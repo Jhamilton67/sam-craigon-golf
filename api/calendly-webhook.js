@@ -103,6 +103,75 @@ async function cancelBooking(scheduledEventUri, apiToken, reason) {
   }
 }
 
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Shared HTML shell for outgoing emails, styled to match the site's own
+// palette (see tailwind.config.js: fairway/brass/ivory/bone/ink) so these
+// read as part of the same brand rather than a generic system email.
+function emailShell({ eyebrow, heading, bodyHtml }) {
+  return `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body style="margin:0;padding:0;background-color:#EBE6D9;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#EBE6D9;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#F6F3EC;border-radius:12px;overflow:hidden;border:1px solid #E3DED0;">
+            <tr>
+              <td style="background-color:#0E241C;padding:28px 32px;">
+                <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;color:#F3F0E8;letter-spacing:0.02em;">
+                  Sam Craigon <span style="color:#C9A066;font-style:italic;">Golf</span>
+                </div>
+                <div style="height:2px;width:36px;background-color:#B68A4E;margin-top:14px;"></div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:36px 32px 8px;">
+                ${eyebrow ? `<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#835F35;margin-bottom:14px;">${eyebrow}</div>` : ''}
+                <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1.3;color:#1C231F;font-weight:600;">${heading}</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 32px 36px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;color:#40483F;">
+                ${bodyHtml}
+              </td>
+            </tr>
+            <tr>
+              <td style="background-color:#EBE6D9;padding:22px 32px;border-top:1px solid #E3DED0;">
+                <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#6E756A;">
+                  Sam Craigon Golf · Uphall Golf Club<br />
+                  <a href="tel:01506856404" style="color:#835F35;text-decoration:none;">01506 856404</a> ·
+                  <a href="mailto:Sam@samcraigongolf.com" style="color:#835F35;text-decoration:none;">Sam@samcraigongolf.com</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function detailRow(label, value) {
+  return `
+    <tr>
+      <td style="padding:9px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6E756A;text-transform:uppercase;letter-spacing:0.05em;width:40%;border-bottom:1px solid #E3DED0;">${label}</td>
+      <td style="padding:9px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#1C231F;border-bottom:1px solid #E3DED0;">${value}</td>
+    </tr>`;
+}
+
 async function sendEmail({ to, subject, html }) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -183,35 +252,62 @@ export async function POST(request) {
       );
 
       const sessionLabel = tier.weeklyLimit > 1 ? `${tier.weeklyLimit} sessions` : '1 session';
-      const bookedTime = new Date(scheduledEvent.start_time).toLocaleString('en-GB', { timeZone: 'Europe/London' });
+      const bookedTime = new Date(scheduledEvent.start_time).toLocaleString('en-GB', {
+        timeZone: 'Europe/London',
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      const safeName = escapeHtml(bookerName);
+      const safeEmail = escapeHtml(bookerEmail);
+      const alreadyBooked = activeThisWeek.length - 1;
 
       const samEmail = process.env.SAM_NOTIFICATION_EMAIL || 'Sam@samcraigongolf.com';
       await sendEmail({
         to: samEmail,
         subject: `Booking auto-cancelled — ${bookerName} exceeded ${tier.name} weekly limit`,
-        html: `
-          <p><strong>${bookerName}</strong> (${bookerEmail}) tried to book another ${tier.name} studio session
-          this week, on top of ${activeThisWeek.length - 1} already booked.</p>
-          <p>Their ${tier.name} membership allows <strong>${sessionLabel} per week</strong>,
-          so the new booking (${bookedTime}) was automatically cancelled.</p>
-          <p>If this was a mistake, you'll need to rebook it manually.</p>
-        `,
+        html: emailShell({
+          eyebrow: 'Auto-cancellation alert',
+          heading: `${safeName} went over their ${tier.name} weekly limit`,
+          bodyHtml: `
+            <p style="margin:0 0 20px;">A new booking was automatically cancelled because this member had already
+            reached their weekly session allowance.</p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+              ${detailRow('Member', safeName)}
+              ${detailRow('Email', `<a href="mailto:${safeEmail}" style="color:#835F35;text-decoration:none;">${safeEmail}</a>`)}
+              ${detailRow('Membership', tier.name)}
+              ${detailRow('Weekly limit', sessionLabel)}
+              ${detailRow('Already booked this week', String(alreadyBooked))}
+              ${detailRow('Cancelled slot', bookedTime)}
+            </table>
+            <p style="margin:0;">If this was a mistake, you'll need to rebook it manually.</p>
+          `,
+        }),
       });
 
       await sendEmail({
         to: bookerEmail,
         subject: `Your booking on ${bookedTime} has been cancelled`,
-        html: `
-          <p>Hi ${bookerName},</p>
-          <p>Your ${tier.name} membership includes <strong>${sessionLabel} per week</strong>, and you've already
-          used that allowance for this week. Your new booking for <strong>${bookedTime}</strong> has been
-          automatically cancelled to reflect this.</p>
-          <p>You're welcome to book again from next Monday, or get in touch with Sam directly if you think
-          this is a mistake or would like to discuss upgrading your membership.</p>
-          <p>Sam Craigon Golf<br />
-          <a href="tel:01506856404">01506 856404</a> ·
-          <a href="mailto:Sam@samcraigongolf.com">Sam@samcraigongolf.com</a></p>
-        `,
+        html: emailShell({
+          eyebrow: `${tier.name} membership`,
+          heading: 'Your booking has been cancelled',
+          bodyHtml: `
+            <p style="margin:0 0 20px;">Hi ${safeName},</p>
+            <p style="margin:0 0 20px;">Your ${tier.name} membership includes <strong>${sessionLabel} per week</strong>,
+            and you've already used that allowance for this week. Your new booking below has been automatically
+            cancelled to reflect this.</p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+              ${detailRow('Membership', tier.name)}
+              ${detailRow('Weekly allowance', sessionLabel)}
+              ${detailRow('Cancelled slot', bookedTime)}
+            </table>
+            <p style="margin:0 0 20px;">You're welcome to book again from next Monday, or get in touch with Sam
+            directly if you think this is a mistake or would like to discuss upgrading your membership.</p>
+            <a href="https://www.samcraigongolf.com/membership" style="display:inline-block;padding:12px 24px;background-color:#B68A4E;color:#0E241C;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:6px;">View membership options</a>
+          `,
+        }),
       });
     }
 
