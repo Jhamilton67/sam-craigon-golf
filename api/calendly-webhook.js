@@ -11,6 +11,11 @@
 // Tier -> weekly limit is config, not data: each tier is its own Calendly
 // event type, so "which event type fired" IS the tier signal. Gold has no
 // entry here because it's unlimited — nothing to enforce.
+
+// Default function timeout is 10s, and this handler deliberately sleeps for
+// 10s before its last email — give it headroom.
+export const config = { maxDuration: 30 };
+
 const TIER_LIMITS = [
   {
     name: 'Bronze',
@@ -101,6 +106,10 @@ async function cancelBooking(scheduledEventUri, apiToken, reason) {
   if (!res.ok) {
     throw new Error(`Calendly cancellation failed: ${res.status} ${await res.text()}`);
   }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function escapeHtml(str) {
@@ -286,6 +295,15 @@ export async function POST(request) {
           `,
         }),
       });
+
+      // Calendly sends its own confirmation email right when the booking is
+      // created, and its own cancellation email right when we call the
+      // cancellation API above — both outside our control, and both racing
+      // against ours. A short delay here just gives Calendly's pair time to
+      // land first, so the member reads "confirmed, then cancelled, then
+      // here's why" in that order rather than our explanation arriving
+      // before Calendly's own confirmation email does.
+      await sleep(10_000);
 
       await sendEmail({
         to: bookerEmail,
