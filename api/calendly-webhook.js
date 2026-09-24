@@ -139,9 +139,7 @@ function emailShell({ eyebrow, heading, bodyHtml }) {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background-color:#F6F3EC;border-radius:12px;overflow:hidden;border:1px solid #E3DED0;">
             <tr>
               <td style="background-color:#0E241C;padding:28px 32px;">
-                <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;color:#F3F0E8;letter-spacing:0.02em;">
-                  Sam Craigon <span style="color:#C9A066;font-style:italic;">Golf</span>
-                </div>
+                <img src="https://www.samcraigongolf.com/images/scg-logo-on-dark.png" alt="Sam Craigon Golf" width="140" height="83" style="display:block;width:140px;height:auto;border:0;" />
                 <div style="height:2px;width:36px;background-color:#B68A4E;margin-top:14px;"></div>
               </td>
             </tr>
@@ -205,6 +203,57 @@ async function sendEmail({ to, subject, html }) {
   }
 }
 
+function formatBookingTimes(scheduledEvent) {
+  const start = new Date(scheduledEvent.start_time);
+  const end = new Date(scheduledEvent.end_time);
+  const dateLabel = start.toLocaleString('en-GB', {
+    timeZone: 'Europe/London',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+  const startLabel = start.toLocaleString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' });
+  const endLabel = end.toLocaleString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' });
+  return { dateLabel, timeRangeLabel: `${startLabel} – ${endLabel}` };
+}
+
+// Sent for every booking that ISN'T auto-cancelled — a lesson, a fitting, a
+// Gold/3-Month session, or a Bronze/Silver session still under its weekly
+// limit. scheduledEvent.name is Calendly's own event type name ("Bronze
+// Studio Session", "Custom Fitting", "On Course Lesson", ...), so this one
+// template covers every booking type without needing a name lookup table.
+async function sendBookingConfirmationEmail({ scheduledEvent, bookerEmail, bookerName, rescheduleUrl, cancelUrl }) {
+  const safeName = escapeHtml(bookerName);
+  const eventName = escapeHtml(scheduledEvent.name || 'Session');
+  const location = escapeHtml(scheduledEvent.location?.location || 'Uphall Golf Club');
+  const { dateLabel, timeRangeLabel } = formatBookingTimes(scheduledEvent);
+
+  await sendEmail({
+    to: bookerEmail,
+    subject: `Confirmed: ${scheduledEvent.name || 'your session'} on ${dateLabel}`,
+    html: emailShell({
+      eyebrow: 'Booking confirmed',
+      heading: `Your ${eventName} is booked in`,
+      bodyHtml: `
+        <p style="margin:0 0 20px;">Hi ${safeName},</p>
+        <p style="margin:0 0 20px;">Thanks for booking with Sam Craigon Golf — here are your session details.</p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+          ${detailRow('Session', eventName)}
+          ${detailRow('Date', dateLabel)}
+          ${detailRow('Time', timeRangeLabel)}
+          ${detailRow('Location', location)}
+        </table>
+        <p style="margin:0;">
+          Need to make a change?
+          ${rescheduleUrl ? `<a href="${escapeHtml(rescheduleUrl)}" style="color:#835F35;text-decoration:none;">Reschedule</a>` : ''}
+          ${rescheduleUrl && cancelUrl ? ' · ' : ''}
+          ${cancelUrl ? `<a href="${escapeHtml(cancelUrl)}" style="color:#835F35;text-decoration:none;">Cancel</a>` : ''}
+        </p>
+      `,
+    }),
+  });
+}
+
 export async function POST(request) {
   const rawBody = await request.text();
   const signingKey = process.env.CALENDLY_WEBHOOK_SIGNING_KEY;
@@ -234,100 +283,112 @@ export async function POST(request) {
     return new Response(JSON.stringify({ ok: true, skipped: 'missing payload fields' }), { status: 200 });
   }
 
+  // Bronze/Silver only — Gold, the 3-Month Pass, lessons and fittings have
+  // no weekly limit to enforce, so `tier` is null for all of those.
   const tier = TIER_LIMITS.find((t) => t.eventTypeUri && t.eventTypeUri === scheduledEvent.event_type);
-  if (!tier) {
-    // Not a Bronze/Silver session (could be Gold, a fitting, a lesson, etc.)
-    // — no weekly limit to enforce.
-    return new Response(JSON.stringify({ ok: true, skipped: 'no tier limit for this event type' }), { status: 200 });
-  }
-
-  const apiToken = process.env.CALENDLY_API_TOKEN;
-  const organizationUri = process.env.CALENDLY_ORGANIZATION_URI;
-  if (!apiToken || !organizationUri) {
-    console.error('CALENDLY_API_TOKEN or CALENDLY_ORGANIZATION_URI not configured');
-    return new Response(JSON.stringify({ error: 'Server misconfigured' }), { status: 500 });
-  }
 
   try {
-    const activeThisWeek = await countActiveBookingsThisWeek(bookerEmail, tier.eventTypeUri, apiToken, organizationUri);
+    if (tier) {
+      const apiToken = process.env.CALENDLY_API_TOKEN;
+      const organizationUri = process.env.CALENDLY_ORGANIZATION_URI;
+      if (!apiToken || !organizationUri) {
+        console.error('CALENDLY_API_TOKEN or CALENDLY_ORGANIZATION_URI not configured');
+        return new Response(JSON.stringify({ error: 'Server misconfigured' }), { status: 500 });
+      }
 
-    if (activeThisWeek.length > tier.weeklyLimit) {
-      // Cancel the booking that just came in (this webhook's own event),
-      // not an earlier legitimate one.
-      await cancelBooking(
-        scheduledEvent.uri,
-        apiToken,
-        `Weekly ${tier.name} membership limit (${tier.weeklyLimit}/week) already reached.`
-      );
+      const activeThisWeek = await countActiveBookingsThisWeek(bookerEmail, tier.eventTypeUri, apiToken, organizationUri);
 
-      const sessionLabel = tier.weeklyLimit > 1 ? `${tier.weeklyLimit} sessions` : '1 session';
-      const bookedTime = new Date(scheduledEvent.start_time).toLocaleString('en-GB', {
-        timeZone: 'Europe/London',
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      const safeName = escapeHtml(bookerName);
-      const safeEmail = escapeHtml(bookerEmail);
-      const alreadyBooked = activeThisWeek.length - 1;
+      if (activeThisWeek.length > tier.weeklyLimit) {
+        // Cancel the booking that just came in (this webhook's own event),
+        // not an earlier legitimate one.
+        await cancelBooking(
+          scheduledEvent.uri,
+          apiToken,
+          `Weekly ${tier.name} membership limit (${tier.weeklyLimit}/week) already reached.`
+        );
 
-      const samEmail = process.env.SAM_NOTIFICATION_EMAIL || 'Sam@samcraigongolf.com';
-      await sendEmail({
-        to: samEmail,
-        subject: `Booking auto-cancelled — ${bookerName} exceeded ${tier.name} weekly limit`,
-        html: emailShell({
-          eyebrow: 'Auto-cancellation alert',
-          heading: `${safeName} went over their ${tier.name} weekly limit`,
-          bodyHtml: `
-            <p style="margin:0 0 20px;">A new booking was automatically cancelled because this member had already
-            reached their weekly session allowance.</p>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-              ${detailRow('Member', safeName)}
-              ${detailRow('Email', `<a href="mailto:${safeEmail}" style="color:#835F35;text-decoration:none;">${safeEmail}</a>`)}
-              ${detailRow('Membership', tier.name)}
-              ${detailRow('Weekly limit', sessionLabel)}
-              ${detailRow('Already booked this week', String(alreadyBooked))}
-              ${detailRow('Cancelled slot', bookedTime)}
-            </table>
-            <p style="margin:0;">If this was a mistake, you'll need to rebook it manually.</p>
-          `,
-        }),
-      });
+        const sessionLabel = tier.weeklyLimit > 1 ? `${tier.weeklyLimit} sessions` : '1 session';
+        const bookedTime = new Date(scheduledEvent.start_time).toLocaleString('en-GB', {
+          timeZone: 'Europe/London',
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        const safeName = escapeHtml(bookerName);
+        const safeEmail = escapeHtml(bookerEmail);
+        const alreadyBooked = activeThisWeek.length - 1;
 
-      // Calendly sends its own confirmation email right when the booking is
-      // created, and its own cancellation email right when we call the
-      // cancellation API above — both outside our control, and both racing
-      // against ours. A short delay here just gives Calendly's pair time to
-      // land first, so the member reads "confirmed, then cancelled, then
-      // here's why" in that order rather than our explanation arriving
-      // before Calendly's own confirmation email does.
-      await sleep(10_000);
+        const samEmail = process.env.SAM_NOTIFICATION_EMAIL || 'Sam@samcraigongolf.com';
+        await sendEmail({
+          to: samEmail,
+          subject: `Booking auto-cancelled — ${bookerName} exceeded ${tier.name} weekly limit`,
+          html: emailShell({
+            eyebrow: 'Auto-cancellation alert',
+            heading: `${safeName} went over their ${tier.name} weekly limit`,
+            bodyHtml: `
+              <p style="margin:0 0 20px;">A new booking was automatically cancelled because this member had already
+              reached their weekly session allowance.</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                ${detailRow('Member', safeName)}
+                ${detailRow('Email', `<a href="mailto:${safeEmail}" style="color:#835F35;text-decoration:none;">${safeEmail}</a>`)}
+                ${detailRow('Membership', tier.name)}
+                ${detailRow('Weekly limit', sessionLabel)}
+                ${detailRow('Already booked this week', String(alreadyBooked))}
+                ${detailRow('Cancelled slot', bookedTime)}
+              </table>
+              <p style="margin:0;">If this was a mistake, you'll need to rebook it manually.</p>
+            `,
+          }),
+        });
 
-      await sendEmail({
-        to: bookerEmail,
-        subject: `Your booking on ${bookedTime} has been cancelled`,
-        html: emailShell({
-          eyebrow: `${tier.name} membership`,
-          heading: 'Your booking has been cancelled',
-          bodyHtml: `
-            <p style="margin:0 0 20px;">Hi ${safeName},</p>
-            <p style="margin:0 0 20px;">Your ${tier.name} membership includes <strong>${sessionLabel} per week</strong>,
-            and you've already used that allowance for this week. Your new booking below has been automatically
-            cancelled to reflect this.</p>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
-              ${detailRow('Membership', tier.name)}
-              ${detailRow('Weekly allowance', sessionLabel)}
-              ${detailRow('Cancelled slot', bookedTime)}
-            </table>
-            <p style="margin:0 0 20px;">You're welcome to book again from next Monday, or get in touch with Sam
-            directly if you think this is a mistake or would like to discuss upgrading your membership.</p>
-            <a href="https://www.samcraigongolf.com/membership" style="display:inline-block;padding:12px 24px;background-color:#B68A4E;color:#0E241C;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:6px;">View membership options</a>
-          `,
-        }),
-      });
+        // Calendly sends its own confirmation email right when the booking is
+        // created, and its own cancellation email right when we call the
+        // cancellation API above — both outside our control, and both racing
+        // against ours. A short delay here just gives Calendly's pair time to
+        // land first, so the member reads "confirmed, then cancelled, then
+        // here's why" in that order rather than our explanation arriving
+        // before Calendly's own confirmation email does.
+        await sleep(10_000);
+
+        await sendEmail({
+          to: bookerEmail,
+          subject: `Your booking on ${bookedTime} has been cancelled`,
+          html: emailShell({
+            eyebrow: `${tier.name} membership`,
+            heading: 'Your booking has been cancelled',
+            bodyHtml: `
+              <p style="margin:0 0 20px;">Hi ${safeName},</p>
+              <p style="margin:0 0 20px;">Your ${tier.name} membership includes <strong>${sessionLabel} per week</strong>,
+              and you've already used that allowance for this week. Your new booking below has been automatically
+              cancelled to reflect this.</p>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                ${detailRow('Membership', tier.name)}
+                ${detailRow('Weekly allowance', sessionLabel)}
+                ${detailRow('Cancelled slot', bookedTime)}
+              </table>
+              <p style="margin:0 0 20px;">You're welcome to book again from next Monday, or get in touch with Sam
+              directly if you think this is a mistake or would like to discuss upgrading your membership.</p>
+              <a href="https://www.samcraigongolf.com/membership" style="display:inline-block;padding:12px 24px;background-color:#B68A4E;color:#0E241C;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;text-decoration:none;border-radius:6px;">View membership options</a>
+            `,
+          }),
+        });
+
+        return new Response(JSON.stringify({ ok: true }), { status: 200 });
+      }
     }
+
+    // Not cancelled — either no weekly limit applies to this event type
+    // (Gold, 3-Month Pass, a lesson, a fitting), or it's Bronze/Silver but
+    // still under the weekly limit. Either way, send the booking confirmation.
+    await sendBookingConfirmationEmail({
+      scheduledEvent,
+      bookerEmail,
+      bookerName,
+      rescheduleUrl: payload.reschedule_url,
+      cancelUrl: payload.cancel_url,
+    });
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (err) {
